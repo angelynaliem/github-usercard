@@ -49,6 +49,11 @@ axios.get('https://api.github.com/users/angelynaliem')
     </div>
 */
 
+/*
+  STEP 4: Pass the data received from Github into your function,
+    and append the returned markup to the DOM as a child of .cards
+*/
+
 function cardMaker(data) {
   const card = document.createElement("div");
   card.classList.add("card");
@@ -102,13 +107,6 @@ function cardMaker(data) {
 // const cards = document.querySelector(".cards");
 // cards.appendChild(cardMaker(data));
 
-
-
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
-
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -120,8 +118,6 @@ function cardMaker(data) {
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -131,3 +127,30 @@ const followersArray = [];
     bigknell
 */
 
+//Added each followers' API into the array as individual string
+const followersArray = [
+  'https://api.github.com/users/ch46gc',
+  'https://api.github.com/users/MarcGallegos',
+  'https://api.github.com/users/robledokari',
+  'https://api.github.com/users/kwmorlock',
+  'https://api.github.com/users/tetondan'
+];
+
+//Run a forEach to "get" each follower's API via Axios, then appending it into the parent element
+followersArray.forEach(follower => {
+  
+  axios.get(follower)
+  
+  .then(response => {
+    const cards = document.querySelector(".cards");
+    cards.append(cardMaker(response.data));
+  })
+
+  .catch(function(error) {
+    console.log(error)
+  })
+
+  .then(function() {
+
+  });
+});
